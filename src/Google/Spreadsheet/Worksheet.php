@@ -14,11 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Google\Spreadsheet;
-
-use SimpleXMLElement;
-use DateTime;
-
 /**
  * Worksheet.
  *
@@ -26,7 +21,7 @@ use DateTime;
  * @subpackage Spreadsheet
  * @author     Asim Liaquat <asimlqt22@gmail.com>
  */
-class Worksheet
+class Google_Spreadsheet_Worksheet
 {
     /**
      * A worksheet xml object
@@ -134,7 +129,7 @@ class Worksheet
      *
      * @param array $query add additional query params to the url to sort/filter the results
      * 
-     * @return \Google\Spreadsheet\ListFeed
+     * @return Google_Spreadsheet_ListFeed
      */
     public function getListFeed(array $query = array())
     {
@@ -143,14 +138,14 @@ class Worksheet
             $feedUrl .= "?" . http_build_query($query);
         }
 
-        $res = ServiceRequestFactory::getInstance()->get($feedUrl);
-        return new ListFeed($res);
+        $res = Google_Spreadsheet_ServiceRequestFactory::getInstance()->get($feedUrl);
+        return new Google_Spreadsheet_ListFeed($res);
     }
 
     /**
      * Get the cell feed of this worksheet
      * 
-     * @return \Google\Spreadsheet\CellFeed
+     * @return Google_Spreadsheet_CellFeed
      */
     public function getCellFeed(array $query = array())
     {
@@ -159,8 +154,8 @@ class Worksheet
             $feedUrl .= "?" . http_build_query($query);
         }
 
-        $res = ServiceRequestFactory::getInstance()->get($feedUrl);
-        return new CellFeed($res);
+        $res = Google_Spreadsheet_ServiceRequestFactory::getInstance()->get($feedUrl);
+        return new Google_Spreadsheet_CellFeed($res);
     }
 
     /**
@@ -172,7 +167,7 @@ class Worksheet
      */
     public function getCsv()
     {
-        return ServiceRequestFactory::getInstance()->get($this->getExportCsvUrl());
+        return Google_Spreadsheet_ServiceRequestFactory::getInstance()->get($this->getExportCsvUrl());
     }
 
     /*
@@ -201,7 +196,7 @@ class Worksheet
             $rowCount
         );
 
-        ServiceRequestFactory::getInstance()->put($this->getEditUrl(), $entry);
+        Google_Spreadsheet_ServiceRequestFactory::getInstance()->put($this->getEditUrl(), $entry);
     }
 
     /**
@@ -211,7 +206,7 @@ class Worksheet
      */
     public function delete()
     {
-        ServiceRequestFactory::getInstance()->delete($this->getEditUrl());
+        Google_Spreadsheet_ServiceRequestFactory::getInstance()->delete($this->getEditUrl());
     }
 
     public function setPostUrl($url)
@@ -226,7 +221,7 @@ class Worksheet
      */
     public function getEditUrl()
     {
-        return Util::getLinkHref($this->xml, 'edit');
+        return Google_Spreadsheet_Util::getLinkHref($this->xml, 'edit');
     }
 
     /**
@@ -236,7 +231,7 @@ class Worksheet
      */
     public function getListFeedUrl()
     {
-        return Util::getLinkHref($this->xml, 'http://schemas.google.com/spreadsheets/2006#listfeed');
+        return Google_Spreadsheet_Util::getLinkHref($this->xml, 'http://schemas.google.com/spreadsheets/2006#listfeed');
     }
 
     /**
@@ -246,7 +241,7 @@ class Worksheet
      */
     public function getCellFeedUrl()
     {
-        return Util::getLinkHref($this->xml, 'http://schemas.google.com/spreadsheets/2006#cellsfeed');
+        return Google_Spreadsheet_Util::getLinkHref($this->xml, 'http://schemas.google.com/spreadsheets/2006#cellsfeed');
     }
 
     /**
@@ -257,7 +252,7 @@ class Worksheet
      */
     public function getExportCsvUrl()
     {
-        return Util::getLinkHref($this->xml, 'http://schemas.google.com/spreadsheets/2006#exportcsv');
+        return Google_Spreadsheet_Util::getLinkHref($this->xml, 'http://schemas.google.com/spreadsheets/2006#exportcsv');
     }
 
 }

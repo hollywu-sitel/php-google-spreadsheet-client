@@ -14,10 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Google\Spreadsheet;
-
-use Google\Spreadsheet\Util;
-
 /**
  * List Entry
  *
@@ -25,12 +21,12 @@ use Google\Spreadsheet\Util;
  * @subpackage Spreadsheet
  * @author     Asim Liaquat <asimlqt22@gmail.com>
  */
-class ListEntry
+class Google_Spreadsheet_ListEntry
 {
     /**
      * The xml representation of this list entry
      * 
-     * @var \SimpleXMLElement
+     * @var SimpleXMLElement
      */
     protected $xml;
 
@@ -44,7 +40,7 @@ class ListEntry
     /**
      * Constructor
      * 
-     * @param \SimpleXMLElement $xml
+     * @param SimpleXMLElement $xml
      * @param array             $data
      */
     public function __construct($xml, $data)
@@ -84,7 +80,7 @@ class ListEntry
 
         $entry .= '</entry>';
 
-        ServiceRequestFactory::getInstance()->put($this->getEditUrl(), $entry);
+        Google_Spreadsheet_ServiceRequestFactory::getInstance()->put($this->getEditUrl(), $entry);
     }
 
     /**
@@ -92,7 +88,7 @@ class ListEntry
      */
     public function delete()
     {
-        ServiceRequestFactory::getInstance()->delete($this->getEditUrl());
+        Google_Spreadsheet_ServiceRequestFactory::getInstance()->delete($this->getEditUrl());
     }
     
     /**
@@ -102,6 +98,6 @@ class ListEntry
      */
     public function getEditUrl()
     {
-        return Util::getLinkHref($this->xml, 'edit');
+        return Google_Spreadsheet_Util::getLinkHref($this->xml, 'edit');
     }
 }

@@ -14,10 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Google\Spreadsheet;
-
-use SimpleXMLElement;
-
 /**
  * Worksheet Data.
  *
@@ -25,7 +21,7 @@ use SimpleXMLElement;
  * @subpackage Spreadsheet
  * @author     Asim Liaquat <asimlqt22@gmail.com>
  */
-class CellEntry
+class Google_Spreadsheet_CellEntry
 {
     /**
      * Xml element for a cell entry
@@ -170,7 +166,7 @@ class CellEntry
             $value
         );
 
-        $res = ServiceRequestFactory::getInstance()->post($this->postUrl, $entry);
+        $res = Google_Spreadsheet_ServiceRequestFactory::getInstance()->post($this->postUrl, $entry);
         $this->xml = new SimpleXMLElement($res);
     }
 
@@ -199,7 +195,7 @@ class CellEntry
      */
     public function getEditUrl()
     {
-        return Util::getLinkHref($this->xml, 'edit');
+        return Google_Spreadsheet_Util::getLinkHref($this->xml, 'edit');
     }
     
 }

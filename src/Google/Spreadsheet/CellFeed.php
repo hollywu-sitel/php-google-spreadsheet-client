@@ -14,12 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Google\Spreadsheet;
-
-use SimpleXMLElement;
-use Google\Spreadsheet\Batch\BatchRequest;
-use Google\Spreadsheet\Batch\BatchResponse;
-
 /**
  * Worksheet Data.
  *
@@ -27,7 +21,7 @@ use Google\Spreadsheet\Batch\BatchResponse;
  * @subpackage Spreadsheet
  * @author     Asim Liaquat <asimlqt22@gmail.com>
  */
-class CellFeed
+class Google_Spreadsheet_CellFeed
 {
     /**
      * The xml representation of the feed
@@ -56,7 +50,7 @@ class CellFeed
     /**
      * Get the feed entries
      * 
-     * @return array \Google\Spreadsheet\CellEntry
+     * @return array Google_Spreadsheet_CellEntry
      */
     public function getEntries()
     {
@@ -97,7 +91,7 @@ class CellFeed
      * @param type $row
      * @param type $col
      * 
-     * @return CellEntry|null
+     * @return Google_Spreadsheet_CellEntry | null
      */
     public function getCell($row, $col)
     {
@@ -139,19 +133,19 @@ class CellFeed
             $value
         );
 
-        ServiceRequestFactory::getInstance()->post($this->getPostUrl(), $entry);
+        Google_Spreadsheet_ServiceRequestFactory::getInstance()->post($this->getPostUrl(), $entry);
     }
 
     /**
      * 
-     * @param \Google\Spreadsheet\Batch\BatchRequest $batchRequest
+     * @param Google_Spreadsheet_Batch_BatchRequest $batchRequest
      * 
-     * @return \Google\Spreadsheet\Batch\BatchResponse
+     * @return Google_Spreadsheet_Batch_BatchResponse
      */
-    public function updateBatch(BatchRequest $batchRequest)
+    public function updateBatch(Google_Spreadsheet_Batch_BatchRequest $batchRequest)
     {
         $xml = $batchRequest->createRequestXml($this);
-        $response = ServiceRequestFactory::getInstance()->post($this->getBatchUrl(), $xml);
+        $response = Google_Spreadsheet_ServiceRequestFactory::getInstance()->post($this->getBatchUrl(), $xml);
         return new BatchResponse(new SimpleXMLElement($response));
     }
 
@@ -161,13 +155,13 @@ class CellFeed
      *
      * @return \Google\Spreadsheet\Batch\BatchResponse
      */
-    public function insertBatch(BatchRequest $batchRequest)
+    public function insertBatch(Google_Spreadsheet_Batch_BatchRequest $batchRequest)
     {
         $xml = $batchRequest->createRequestXml($this);
-        $response = ServiceRequestFactory::getInstance()
+        $response = Google_Spreadsheet_ServiceRequestFactory::getInstance()
             ->setHeaders(array("If-Match" => "*"))
             ->post($this->getBatchUrl(), $xml);
-        return new BatchResponse(new SimpleXMLElement($response));
+        return new Google_Spreadsheet_Batch_BatchResponse(new SimpleXMLElement($response));
     }
     
     /**
@@ -177,7 +171,7 @@ class CellFeed
      */
     public function getPostUrl()
     {
-        return Util::getLinkHref($this->xml, 'http://schemas.google.com/g/2005#post');
+        return Google_Spreadsheet_Util::getLinkHref($this->xml, 'http://schemas.google.com/g/2005#post');
     }
 
     /**
@@ -186,7 +180,7 @@ class CellFeed
      */
     public function getBatchUrl()
     {
-        return Util::getLinkHref($this->xml, 'http://schemas.google.com/g/2005#batch');
+        return Google_Spreadsheet_Util::getLinkHref($this->xml, 'http://schemas.google.com/g/2005#batch');
     }
 
     /**
@@ -196,7 +190,7 @@ class CellFeed
      * @param int    $col
      * @param string $content
      * 
-     * @return CellEntry
+     * @return Google_Spreadsheet_CellEntry
      */
     public function createInsertionCell($row, $col, $content)
     {
@@ -211,7 +205,7 @@ class CellFeed
         $link->addAttribute('type', 'application/atom+xml');
         $link->addAttribute('href', $this->getPostUrl() . '/R' . $row . 'C' . $col);
 
-        return new CellEntry($xml, $this->getPostUrl());
+        return new Google_Spreadsheet_CellEntry($xml, $this->getPostUrl());
     }
     
 }

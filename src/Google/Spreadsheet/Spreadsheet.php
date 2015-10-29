@@ -14,11 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Google\Spreadsheet;
-
-use SimpleXMLElement;
-use DateTime;
-
 /**
  * Spreadsheet. Represents a single spreadsheet.
  *
@@ -26,14 +21,14 @@ use DateTime;
  * @subpackage Spreadsheet
  * @author     Asim Liaquat <asimlqt22@gmail.com>
  */
-class Spreadsheet
+class Google_Spreadsheet_Spreadsheet
 {
     const REL_WORKSHEETS_FEED = 'http://schemas.google.com/spreadsheets/2006#worksheetsfeed';
 
     /**
      * The spreadsheet xml object
      * 
-     * @var \SimpleXMLElement
+     * @var SimpleXMLElement
      */
     protected $xml;
 
@@ -84,8 +79,8 @@ class Spreadsheet
      */
     public function getWorksheets()
     {
-        $res = ServiceRequestFactory::getInstance()->get($this->getWorksheetsFeedUrl());
-        return new WorksheetFeed($res);
+        $res = Google_Spreadsheet_ServiceRequestFactory::getInstance()->get($this->getWorksheetsFeedUrl());
+        return new Google_Spreadsheet_WorksheetFeed($res);
     }
 
     /**
@@ -110,8 +105,8 @@ class Spreadsheet
             $colCount
         );
 
-        $response = ServiceRequestFactory::getInstance()->post($this->getWorksheetsFeedUrl(), $entry);
-        return new Worksheet(new SimpleXMLElement($response));
+        $response = Google_Spreadsheet_ServiceRequestFactory::getInstance()->post($this->getWorksheetsFeedUrl(), $entry);
+        return new Google_Spreadsheet_Worksheet(new SimpleXMLElement($response));
     }
 
     /**
@@ -121,7 +116,7 @@ class Spreadsheet
      */
     public function getWorksheetsFeedUrl()
     {
-        return Util::getLinkHref($this->xml, self::REL_WORKSHEETS_FEED);
+        return Google_Spreadsheet_Util::getLinkHref($this->xml, self::REL_WORKSHEETS_FEED);
     }
 
 }

@@ -14,10 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Google\Spreadsheet;
-
-use SimpleXMLElement;
-
 /**
  * Spreadsheet Service.
  *
@@ -25,17 +21,17 @@ use SimpleXMLElement;
  * @subpackage Spreadsheet
  * @author     Asim Liaquat <asimlqt22@gmail.com>
  */
-class SpreadsheetService
+class Google_Spreadsheet_SpreadsheetService
 {
     /**
      * Fetches a list of spreadhsheet spreadsheets from google drive.
      *
-     * @return \Google\Spreadsheet\SpreadsheetFeed
+     * @return Google_Spreadsheet_SpreadsheetFeed
      */
     public function getSpreadsheets()
     {
-        return new SpreadsheetFeed(
-            ServiceRequestFactory::getInstance()->get('feeds/spreadsheets/private/full')
+        return new Google_Spreadsheet_SpreadsheetFeed(
+            Google_Spreadsheet_ServiceRequestFactory::getInstance()->get('feeds/spreadsheets/private/full')
         );
     }
 
@@ -45,13 +41,13 @@ class SpreadsheetService
      *
      * @param string $id the url of the spreadsheet
      *
-     * @return \Google\Spreadsheet\Spreadsheet
+     * @return Google_Spreadsheet_Spreadsheet
      */
     public function getSpreadsheetById($id)
     {
-        return new Spreadsheet(
+        return new Google_Spreadsheet_Spreadsheet(
             new SimpleXMLElement(
-                ServiceRequestFactory::getInstance()->get('feeds/spreadsheets/private/full/'. $id)
+               Google_Spreadsheet_ServiceRequestFactory::getInstance()->get('feeds/spreadsheets/private/full/'. $id)
             )
         );
     }
@@ -59,32 +55,32 @@ class SpreadsheetService
     /**
      * Returns a list feed of the specified worksheet.
      * 
-     * @see \Google\Spreadsheet\Worksheet::getWorksheetId()
+     * @see Google_Spreadsheet_Worksheet::getWorksheetId()
      * 
      * @param string $worksheetId
      * 
-     * @return \Google\Spreadsheet\ListFeed
+     * @return Google_Spreadsheet_ListFeed
      */
     public function getListFeed($worksheetId)
     {
-        return new ListFeed(
-            ServiceRequestFactory::getInstance()->get("feeds/list/{$worksheetId}/od6/private/full")
+        return new Google_Spreadsheet_ListFeed(
+            Google_Spreadsheet_ServiceRequestFactory::getInstance()->get("feeds/list/{$worksheetId}/od6/private/full")
         );
     }
     
     /**
      * Returns a cell feed of the specified worksheet.
      * 
-     * @see \Google\Spreadsheet\Worksheet::getWorksheetId()
+     * @see Google_Spreadsheet_Worksheet::getWorksheetId()
      * 
      * @param string $worksheetId
      * 
-     * @return \Google\Spreadsheet\CellFeed
+     * @return Google_Spreadsheet_CellFeed
      */
     public function getCellFeed($worksheetId)
     {
-        return new CellFeed(
-            ServiceRequestFactory::getInstance()->get("feeds/cells/{$worksheetId}/od6/private/full")
+        return new Google_Spreadsheet_CellFeed(
+            Google_Spreadsheet_ServiceRequestFactory::getInstance()->get("feeds/cells/{$worksheetId}/od6/private/full")
         );
     }
 }

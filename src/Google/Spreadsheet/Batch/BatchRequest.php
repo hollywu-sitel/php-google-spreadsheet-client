@@ -14,12 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Google\Spreadsheet\Batch;
-
-use Google\Spreadsheet\CellFeed;
-use Google\Spreadsheet\CellEntry;
-
-
 /**
  * BatchRequest.
  *
@@ -27,7 +21,7 @@ use Google\Spreadsheet\CellEntry;
  * @subpackage Spreadsheet
  * @author     Asim Liaquat <asimlqt22@gmail.com>
  */
-class BatchRequest
+class Google_Spreadsheet_Batch_BatchRequest
 {
     /**
      *
@@ -43,20 +37,20 @@ class BatchRequest
     
     /**
      * 
-     * @param \Google\Spreadsheet\CellEntry $cellEntry
+     * @param Google_Spreadsheet_CellEntry $cellEntry
      */
-    public function addEntry(CellEntry $cellEntry)
+    public function addEntry(Google_Spreadsheet_CellEntry $cellEntry)
     {
         $this->entries[] = $cellEntry;
     }
     
     /**
      * 
-     * @param \Google\Spreadsheet\CellFeed $cellFeed
+     * @param Google_Spreadsheet_CellFeed $cellFeed
      * 
      * @return string|null
      */
-    public function createRequestXml(CellFeed $cellFeed)
+    public function createRequestXml(Google_Spreadsheet_CellFeed $cellFeed)
     {
         if(count($this->entries) === 0) {
             return null;
@@ -81,13 +75,13 @@ class BatchRequest
 
     /**
      * 
-     * @param \Google\Spreadsheet\CellEntry $cellEntry
+     * @param Google_Spreadsheet_CellEntry $cellEntry
      * @param string                        $index
-     * @param \Google\Spreadsheet\CellFeed  $cellFeed
+     * @param Google_Spreadsheet_CellFeed  $cellFeed
      * 
      * @return string
      */
-    protected function createEntry(CellEntry $cellEntry, $index, CellFeed $cellFeed)
+    protected function createEntry(Google_Spreadsheet_CellEntry $cellEntry, $index, CellFeed $cellFeed)
     {
         return sprintf(
             '<entry>

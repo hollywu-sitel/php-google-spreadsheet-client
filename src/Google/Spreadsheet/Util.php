@@ -14,10 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Google\Spreadsheet;
-
-use SimpleXMLElement;
-
 /**
  * Utility class. Provides several methods which are common to multiple classes.
  *
@@ -25,7 +21,7 @@ use SimpleXMLElement;
  * @subpackage Spreadsheet
  * @author     Asim Liaquat <asimlqt22@gmail.com>
  */
-class Util
+class Google_Spreadsheet_Util
 {
     /**
      * Extracts the endpoint from a full google spreadsheet url.
@@ -55,7 +51,7 @@ class Util
                 return $attributes['href']->__toString();
             }
         }
-        throw new Exception('No link found with rel "'.$rel.'"');
+        throw new Google_Spreadsheet_Exception('No link found with rel "'.$rel.'"');
     }
 
 }
