@@ -14,10 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Google\Spreadsheet;
-
-use SimpleXMLElement;
-
 /**
  * Worksheet Data.
  *
@@ -25,7 +21,7 @@ use SimpleXMLElement;
  * @subpackage Spreadsheet
  * @author     Asim Liaquat <asimlqt22@gmail.com>
  */
-class ListFeed
+class Google_Spreadsheet_ListFeed
 {
     /**
      * Xml representation of this feed
@@ -53,7 +49,7 @@ class ListFeed
      */
     public function getPostUrl()
     {
-        return Util::getLinkHref($this->xml, 'http://schemas.google.com/g/2005#post');
+        return Google_Spreadsheet_Util::getLinkHref($this->xml, 'http://schemas.google.com/g/2005#post');
     }
 
     /**
@@ -76,13 +72,13 @@ class ListFeed
         }
         $entry .= '</entry>';
 
-        ServiceRequestFactory::getInstance()->post($this->getPostUrl(), $entry);
+        Google_Spreadsheet_ServiceRequestFactory::getInstance()->post($this->getPostUrl(), $entry);
     }
 
     /**
      * Get the entries of this feed
      * 
-     * @return array \Google\Spreadsheet\ListEntry
+     * @return array Google_Spreadsheet_ListEntry
      */
     public function getEntries()
     {
@@ -96,7 +92,7 @@ class ListFeed
                     $data[$col->getName()] = $col->__toString();
                 }
                 
-                $rows[] = new ListEntry($entry, $data);
+                $rows[] = new Google_Spreadsheet_ListEntry($entry, $data);
             }
         }
         

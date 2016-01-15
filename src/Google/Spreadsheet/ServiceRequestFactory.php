@@ -30,7 +30,7 @@ class Google_Spreadsheet_ServiceRequestFactory
      * 
      * @param Google_Spreadsheet_ServiceRequestInterface $instance
      */
-    public static function setInstance(ServiceRequestInterface $instance = null)
+    public static function setInstance(Google_Spreadsheet_ServiceRequestInterface $instance = null)
     {
         self::$instance = $instance;
     }
